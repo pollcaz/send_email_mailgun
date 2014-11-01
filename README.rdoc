@@ -1,0 +1,61 @@
+== README
+
+Este proyecto sirve como base para un ejercicio de envio de correo con el API Rest de Mailgun para los estudiantes de Análisis y desarrollo de sistemas de información y todo aquel que desee aprender como hacerlo utilizando aplicaciones rails4x:
+
+Actividad – Enviar correo a través de una API REST utilizando el servicio de Mailgun
+
+Objetivo: Enviar correo por medio de una aplicación rails utilizando una API Rest( servicio Mailgun)
+
+
+Introducción:
+
+El correo siempre será un servicio imprescindible para nuestras aplicaciones notificar a los usuarios del sistema de los diferentes eventos que pueden ocurrir ya sea porque se desea informar y dejar una copia de la transaccionalidad que realizó el cliente, por alertas del sistema desde la parte administrativa o porque sucede errores que requieren ser atentidos , entre otras razones. Por lo anterior nos vemos en la obligación de saber como realizar el envío de correo desde nuestra aplicación , el cual se puede hacer el envio tanto desde un servidor propio interno a nuestra red o uno externo donde un proveedor sea quien se encargue del deliver(entrega o envío) del mismo. Dentro de los protocolos que podemos utilizar están smtp y http siendo este último mucho mejor por las ventajas que tiene de utilizar una Api Rest de fácil uso, mucho más rápido y flexible a la hora de integrar nuestras aplicaciones con otros sistemas al realizar la implementación de estos, adicional nos evitamos los inconvenientes de ser filtrados por un proxy o cualquier otra aplicación dentro de la red que pueda detener dicha solicitud. Por lo anterior, vemos muchas más ventajas en utilizar HTTP para enviar las solicitudes REST desde nuestra aplicación, administrar listas de correo y utilizar nuestro dominio, entre otras cosas.
+
+Para realizar esta actividad deberás realizar  los siguientes pasos:
+ 
+1- Debes de clonar el siguiente repositorio el cual contendrá el  proyecto base para desarrollar el ejercicio
+
+2- debes de ingresar a tu proyecto abriendo la consola  y  adicionarle a tu proyecto la gema para  envia las peticiones rest osea el cliente Rest, esto lo debes de hacer adicionandola en el Gemfile así:
+
+gem 'rest-client'
+
+3- instale la gema ejecutando por consola estando parado en la ruta de su proyecto el siguiente comando:
+
+$ bundle install
+
+4-  cree un archivo dentro del directorio mailer  llamado action_correo.rb y adicionele el siguiente código:
+
+class ActionCorreo < ActionMailer::Base
+ 
+
+end
+
+5- Debes crear tu cuenta en mailgun ingresando a la siguiente direccion https://mailgun.com/signup
+ 
+cuando termines de crearla quedaras en en una ventana apara  que realices tu primer envio
+
+5.1- prueba lo fácil que es enviar un correo desde la consola utilizando el api rest, para esto ingresa al tab curl y copia y pega el codigo en tu terminal  terminando con ENTER, luego revisa tu correo y te daras cuenta lo fácil y rápido del envio por el protocolo https. 
+
+5.2- ingresa al tab ruby y copia y pega el método send_simple_message dentro de la clase ActionCorreo  que definiste en el punto 4
+
+6- dentro del controlador de personas en la action create adiciona el siguiente código
+
+def create
+    @persona = Persona.new(persona_params)
+
+    respond_to do |format|
+      if @persona.save
+        ActionCorreo.send_simple_message # Esta es la linea a adicionar
+        format.html { redirect_to @persona, notice: 'Persona was successfully created. and emailed' }
+        format.json { render :show, status: :created, location: @persona }
+      else
+        format.html { render :new }
+        format.json { render json: @persona.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+7- ahora sube el servidor de tu aplicación y crea una persona, así se enviará un mail a tu cuenta cada que crees una persona en tu aplicación
+
+8- deberas reformar el método de envio para que reciba un objeto como parámetro y envie el correo al usuario creado

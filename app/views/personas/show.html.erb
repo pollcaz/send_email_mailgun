@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @persona.nombre %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @persona.email %>
+</p>
+
+<p>
+  <strong>Email confirmation:</strong>
+  <%= @persona.email_confirmation %>
+</p>
+
+<p>
+  <strong>Identificador:</strong>
+  <%= @persona.identificador %>
+</p>
+
+<p>
+  <strong>Sexo:</strong>
+  <%= @persona.sexo %>
+</p>
+
+<%= link_to 'Edit', edit_persona_path(@persona) %> |
+<%= link_to 'Back', personas_path %>

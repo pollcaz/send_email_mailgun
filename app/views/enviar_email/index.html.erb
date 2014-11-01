@@ -1,0 +1,23 @@
+<ul>
+  <li><h3>Ruby on Rails desde Cero: Enviar emails (ActionMailer) </h3></li>
+</ul>
+	<p>Para que funcione la emisión de correos se deben configurar el servidor de correos que estemos
+	utilizando, este se ubica en la siguiente ruta
+	</p>
+
+<ul>
+    <li>config/environments/development.rb</li>
+</ul>
+		<pre>config.action_mailer.delivery_method = :smtp
+		config.action_mailer.smtp_settings = {
+		address: 'smtp.gmail.com',
+		port:     587,
+		domain: 'gmail.com',
+		user_name: 'aquí_tu_correo@gmail.com',
+		password: 'aquí_tu_contraseña_real',
+		authentication: 'plain',
+		enable_starttls_auto: true }</pre>
+		
+	<p>En esta ruta se agregan los datos de su dirección de correo electrónico o servidor para que
+	funcione</p>
+<h3><a href="<%= email_send_path %>">Enviar correo electrónico </a></h3>

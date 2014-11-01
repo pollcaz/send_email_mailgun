@@ -1,0 +1,34 @@
+class EnviarEmailController < ApplicationController
+
+  def index
+  end
+
+<<<<<<< HEAD
+  
+
+  def enviar
+    @pers = Persona.create({ nombre: 'Pedrito Perez', email: 'pperez@hotmail.com',email_confirmation: ' ', identificador: "123456789", sexo: 'm', })
+      #ActionCorreo.send_simple_message(@pers)
+     render json: @pers
+     redirect_to personas_path
+  end
+=======
+  def enviar_origin
+    @pers = Persona.create({ nombre: 'SANO', email: 'lindalizethpereira@gmail.com',email_confirmation: ' ', identificador: "123456789", sexo: 'm', })
+      ActionCorreo.bienvenido_email(@pers).deliver
+     render json: @pers
+ end
+
+  def enviar
+    @pers = Persona.create({ nombre: 'Paulo Carmona', email: 'pcarmonaz@hotmail.com',email_confirmation: ' ', identificador: "123456789", sexo: 'm', })
+      ActionCorreo.send_simple_message(@pers)
+     render json: @pers
+     redirect_to personas_path
+ end
+>>>>>>> 101cfd6f2c476c25df394c629ee7d6764b16e446
+
+end
+
+
+
+
